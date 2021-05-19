@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SubDao">
+	<!-- 订阅杂志日志记录 -->
+	<insert id="subscribe" statementType="CALLABLE" parameterMap="subscribeMap">
+		{call pkg_y_cn201602a1.p_y_cn201602a1_sublog(?,?,?,?,?,?,?,?)}
+	</insert>
+
+	<parameterMap type="java.util.Map" id="subscribeMap">
+		<parameter property="I_USERMOBILE" mode="IN" jdbcType="VARCHAR" />
+		<parameter property="I_PROVCODE" mode="IN" jdbcType="INTEGER" />
+		<parameter property="I_AREACODE" mode="IN" jdbcType="INTEGER" />
+		<parameter property="I_LOGINID" mode="IN" jdbcType="INTEGER" />
+		<parameter property="I_COMEFROM" mode="IN" jdbcType="VARCHAR" />
+		<parameter property="I_IP" mode="IN" jdbcType="VARCHAR" />
+		<parameter property="I_COLUMNID" mode="IN" jdbcType="INTEGER" />
+		<parameter property="O_RETURN" mode="OUT" jdbcType="INTEGER" />
+	</parameterMap>
+
+	<select id="getMagazineIdByMobile" resultType="Integer"
+		parameterType="map">
+		select t.COLUMNID
+		from T_Y_CN201602A1_SUBLOG t
+		where
+		t.usermobile = #{mobile}
+	</select>
+
+	<!-- 调用sql查询 -->
+	<select id="deleteAccountTbl" resultType="Integer"
+		parameterType="map">
+		select `id` from `accounttbl` where id=#{id}
+    </select>
+
+	<parameterMap type="java.util.Map" id="loginAndRegByProcedureParameterType">
+		<parameter property="userId" mode="OUT" jdbcType="INTEGER" />
+		<parameter property="user_Pwd" mode="IN" jdbcType="VARCHAR" />
+		<parameter property="user_MobileCode" mode="IN" jdbcType="VARCHAR" />
+		<parameter property="user_RegIP" mode="IN" jdbcType="VARCHAR" />
+	</parameterMap>
+
+	<!-- 调用存储过程  -->
+	<select id="loginAndRegByProcedure" parameterMap="loginAndRegByProcedureParameterType"
+		statementType="CALLABLE" resultType="Integer">
+		{call loginandreg(?,?,?,?)}
+	</select>
+
+	<!-- 调用存储过程测试事务有无生效  -->
+	<select id="updateAccounttblProcedure" statementType="CALLABLE">
+		{call
+		updateaccounttbl()}
+	</select>
+
+	<resultMap type="cn.richinfo.pojo.User" id="userMap">
+		<result column="user_Id" property="userId" />
+		<result column="user_MobileCode" property="userMobileCode" />
+		<result column="user_RegTime" property="userRegTime" />
+		<result column="user_RegIP" property="userRegIP" />
+	</resultMap>
+
+	<!-- 调用存储过程获得结果集可以select as多表联查结果  -->
+	<select id="queryAllUsers" resultMap="userMap">
+		SELECT
+		user_Id,user_MobileCode,user_RegTime,user_RegIP FROM Users;
+	</select>
+	
+	<resultMap type="cn.richinfo.pojo.Accounttbl" id="accounttblMap">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="balance" property="balance" />
+	</resultMap>
+</mapper>

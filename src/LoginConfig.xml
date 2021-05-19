@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LoginConfig>
+	<Login>
+		<ApiUrl><![CDATA[http://mail.10086ts.cn/login/inlogin.action?cguid=]]></ApiUrl>
+		<Encoding>UTF-8</Encoding>
+		<!-- 登录失败次数，每天当失败次数大于该次数时，需要输入图形验证码 -->
+		<minfailedtimes>10</minfailedtimes>
+		<!-- 一天最多登录失败次数，当失败次数大于该次数时，当天禁止登录 -->
+		<maxfailedtimes>20</maxfailedtimes>
+		<!-- 会话超时时间（单位：分钟） -->
+		<sessiontimeout>20</sessiontimeout>
+		<!-- 短信登录时是否需要开启验证码，0为关闭，1为开启 -->
+		<smsverifycode>1</smsverifycode>
+		<!-- 登录成功后写cookie的域名 -->
+		<mailDomain>mail.10086ts.cn</mailDomain>
+		<FailedTooMuch>您的密码错误次数过多，为了您的账号安全，暂被禁止登录</FailedTooMuch>
+	</Login>
+	<SsoApi>
+		<!-- 测试线接口地址-->			
+		<url>http://192.168.9.190:27788/SSOInterface/SSOReg</url>
+		<jumpUrl>http://192.168.9.190:27788/SSOInterface/SSOLogin</jumpUrl>
+		<clientId>test</clientId>
+		<key>12345600</key> 
+		<!-- 正式线接口地址 -->
+<!-- 		<url>http://172.16.42.169:8800/ssointerface/SSOReg</url>
+		<jumpUrl>http://ssointerface.mail.10086.cn:8080/ssointerface/SSOLogin</jumpUrl> 
+		<clientId>quyou_yuyying</clientId>
+		<key>2c7c10e0ca6065b2</key> -->
+		<!-- 通过手机号码获取sid接口 -->
+		<authurl>http://192.168.9.190:27788/SSOInterface/UserLoginAuth</authurl>			
+		<!-- <authurl>http://172.16.42.169:8800/ssointerface/UserLoginAuth</authurl> -->
+	</SsoApi>
+	<domainSSO>
+		<ApiUrl><![CDATA[http://mail.10086ts.cn/login/sso.aspx?Sid=%s]]></ApiUrl>
+		<clientId>1003</clientId>
+		<partId>12</partId>
+		<mailPath>mail.10086ts.cn</mailPath>
+	</domainSSO>
+	<Sms>
+		<ApiUrl><![CDATA[http://mail.10086.cn/s?func=login:sendSmsCode&cguid=]]></ApiUrl>
+		<fv>4</fv>
+		<clientId>1003</clientId>
+		<version>1.0</version>
+	</Sms>
+	<Invial>
+		<ApiUrl><![CDATA[http://mail.10086ts.cn/login/invalid.action?cguid=]]></ApiUrl>
+		<Encoding>UTF-8</Encoding>
+	</Invial>
+	<verify>
+	  <!--
+		验证码路径
+		down 获取验证码的url
+		post 验证验证码的url
+	  -->
+	  <down>http://192.168.9.196:20080</down>
+	  <post>http://192.168.9.196:20081/confirmimage</post>
+	  <clientid>999</clientid>
+	</verify>
+	<VerifyResult>
+		<Empty>验证码不能为空</Empty>
+		<Expires>验证码已失效</Expires>
+		<Failed>获取验证码失败</Failed>
+		<Illegal>验证码操作太过频繁</Illegal>
+		<Invalid>验证码错误</Invalid>
+		<NullAgent>获取验证码失败</NullAgent>
+		<OffLine>用户</OffLine>
+		<OK>用户不在线</OK>
+		<Other>验证码输入错误或输入位数不正确</Other>
+		<ServerBusy>网络繁忙，请稍后再试[803]</ServerBusy>
+		<Unknow>网络繁忙，请稍后再试[802]</Unknow>	
+		<FailedTooMuch>您的密码错误次数过多，为了您的账号安全，暂被禁止登录</FailedTooMuch>	
+	</VerifyResult>
+	<LoginResult>
+		<SystemError>当前网络有点繁忙，请稍候再试试看...</SystemError>
+		<PassportIdEmpty>您尚未拥有通行证号码，请先注册通行证</PassportIdEmpty>
+		<NotStart>活动未开始，敬请期待</NotStart>
+		<GameOver>活动已结束，感谢您的关注</GameOver>
+		<ProvNotAllow>活动暂时未对您所在的省份开放，感谢您的关注</ProvNotAllow>
+		<AreaNotAllow>活动暂时未对您所在的城市或地区开放，感谢您的关注</AreaNotAllow>
+		<NotChinaMobile>非中国移动手机号码，请重新输入</NotChinaMobile>
+	</LoginResult>
+	<SmsResult>
+		<Failed>获取验证码失败，请稍候再试...</Failed>
+		<PML401010001>账号不存在</PML401010001>
+		<PML401010002>参数不合法</PML401010002>
+		<PML404010001>超过频次限制，拒绝获取短信验证码</PML404010001>
+		<PML401010009>短信验证码获取失败，请稍候再试</PML401010009>
+	</SmsResult>
+</LoginConfig>

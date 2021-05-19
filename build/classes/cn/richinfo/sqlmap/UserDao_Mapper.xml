@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserDao">
+	<!-- 订阅杂志日志记录 -->
+	<insert id="addchance" statementType="CALLABLE" parameterMap="chanceMap">
+		{call pkg_y_cn201602a1.p_y_cn201602a1_addchance(?,?,?,?,?,?,?,?)}
+	</insert>
+	
+	<parameterMap type="java.util.Map" id="chanceMap">
+		<parameter property="I_USERMOBILE" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="I_CHANCETYPE" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="O_RETURN" mode="OUT" jdbcType="INTEGER"/>
+	</parameterMap>
+	
+	<!-- 邮箱单点到活动登录日志记录 -->
+	<insert id="ssologin" statementType="CALLABLE" parameterMap="ssologinMap">
+		{call pkg_y_cn201602a1.p_y_cn201602a1_ssolog(?,?,?,?,?,?,?,?)}
+	</insert>
+	
+	<parameterMap type="java.util.Map" id="ssologinMap">
+		<parameter property="I_USERMOBILE" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="I_PROVCODE" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="I_AREACODE" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="I_LOGINID" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="I_COMEFROM" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="I_IP" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="I_FLAG" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="O_RETURN" mode="OUT" jdbcType="INTEGER"/>
+	</parameterMap>
+</mapper>

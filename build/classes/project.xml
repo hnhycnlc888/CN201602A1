@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>	
+	<!-- 活动编号 -->
+	<code>CN201602A1</code>
+	<!-- 活动名称 -->
+	<name>我要上头条</name>
+	<!-- 开始时间，格式yyyy-MM-dd HH:mm:ss，留空则不限制 -->
+	<start>2016-03-31 23:59:59</start>
+	<!-- 结束时间，格式yyyy-MM-dd HH:mm:ss，留空则不限制 -->
+	<end>2016-05-31 23:59:59</end>
+	<!-- 省份限制：type=0 限制省份，type=1非限制省份，多个省份用英文逗号分开 -->
+	<prov type="1"></prov>
+	<!-- 地区限制：type=0 限制地区，type=1非限制地区，多个地区用英文逗号分开 -->
+	<area type="1"></area>
+	<!-- 非中国移动省份，多个省份用英文逗号分开 -->
+	<notcmccprov>81,82</notcmccprov>
+	<login>
+		<!-- 记录登录数据的存储过程 -->
+		<procedure>pkg_y_cn20110207_common.p_y_cn20110207_loginlog</procedure>
+		<!-- 登录失败次数，每天当失败次数大于该次数时，需要输入图形验证码 -->
+		<minfailedtimes>3</minfailedtimes>
+		<!-- 一天最多登录失败次数，当失败次数大于该次数时，当天禁止登录 -->
+		<maxfailedtimes>20</maxfailedtimes>
+		<!-- 会话超时时间（单位：分钟） -->
+		<sessiontimeout>20</sessiontimeout>
+		<!-- 登录活跃行为上报行为标签编号 -->
+		<usertag></usertag>
+	</login>
+	<smsverify>
+		<!-- 短信下发端口号 -->
+		<spnumber></spnumber>
+		<!-- 短信验证码有效时长（单位：分） -->
+		<expire>10</expire>
+		<!-- 短信验证码内容模板 -->
+		<content>尊敬的客户：{VC}是您本次的短信验证码，{MIN}分钟内有效。[中国移动139邮箱]</content>
+	</smsverify>
+	<appsetting>
+		<!-- 测试地址 邮箱单点登录 -->
+		<ssotoEmail><![CDATA[http://rm.mail.10086ts.cn/m2015/html/index.html?id=%s&sid=%s]]></ssotoEmail>
+		<!-- 80上线地址 -->
+<!-- 		<ssotoEmail><![CDATA[http://appmail3.mail.10086.cn/m2015/html/index.html?id=%s&sid=%s]]></ssotoEmail>  -->
+		
+		<!-- 杂志单点 测试 -->
+		<ssoToMagazine><![CDATA[http://mail.10086ts.cn/login/sso.aspx?id=%s&sid=%s]]></ssoToMagazine>
+		<!-- 杂志单点 上线 -->
+<!-- 		<ssoToMagazine><![CDATA[http://mail.10086.cn/login/sso.aspx?id=dingyuezhongxin_%s&sid=%s]]></ssoToMagazine>  -->
+		
+		<!-- 单点到活到 上线 -->
+		<ssotoActivity><![CDATA[http://zone.mail.10086.cn/api/sso/ssoformail.ashx?to=%s&sid=%s]]></ssotoActivity>
+		<SubApi>
+			<!-- 测试线接口地址 -->
+		    <subUrl><![CDATA[http://rm.mail.10086ts.cn/subscribe/inner/bis/subscribe?sid=]]></subUrl>
+		    <comeFrom>503</comeFrom>
+		    <batchColumns>25542,37910,25943,17712,107235</batchColumns>
+		    <goSubsUrl><![CDATA[http://mail.10086ts.cn/login/sso.aspx?id=dingyuezhongxin_]]></goSubsUrl>
+		    <encoding>UTF-8</encoding>
+		   
+		    
+		    <!-- 正式线接口地址 -->
+<!-- 		    <subUrl>http://subscribe-js.api.localdomain:5100/inner/bis/subscribe?sid=</subUrl>
+		    <comeFrom>503</comeFrom>
+		    <batchColumns>38553,39428,39429,39430,39433</batchColumns>
+		    <goSubsUrl>http://mail.10086.cn/login/sso.aspx?id=dingyuezhongxin_</goSubsUrl>
+		    <encoding>UTF-8</encoding> -->
+		</SubApi>
+		<Draw>
+			<ReceiveUrl><![CDATA[http://happy.mail.10086ts.cn:8002/jsp/CN201602A1/sso.do?Flag=8&sid=$sid]]></ReceiveUrl>
+			<Subject>我要上头条活动中奖通知</Subject>
+			<Sender>13726273429</Sender>
+			<RecDomain>@139.com</RecDomain>
+		</Draw>
+	</appsetting>
+	
+</project>

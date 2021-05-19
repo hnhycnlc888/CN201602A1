@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DrawDao">
+	<!-- 抽奖存储过程调用 -->
+	<select id="draw" statementType="CALLABLE" parameterMap="drawMap">
+		{call PKG_Y_CN201602A1.p_y_cn201602a1_draw(?,?,?,?,?,?,?,?,?)}
+	</select>
+	
+	<parameterMap type="java.util.Map" id="drawMap">
+		<parameter property="I_MOBILE" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="I_PROVCODE" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="I_AREACODE" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="I_CANWIN" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="I_LOGINID" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="I_COMEFROM" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="I_IP" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="O_RETURN" mode="OUT" jdbcType="INTEGER" javaType="INTEGER"/>
+		<parameter property="O_CURSOR" mode="OUT" jdbcType="CURSOR" resultMap="prizeMap"/>
+	</parameterMap>
+	
+	<resultMap type="cn.richinfo.pojo.WinResult" id="prizeMap">
+		<result column="CODE" property="code"/>
+		<result column="TIELE" property="title"/>
+		<result column="kind" property="kind"/>
+		<result column="projectcode" property="projectCode"/>
+		<result column="mailtemp" property="mailTemp"/>
+		<result column="picname" property="picName"/>
+		<result column="magazineids" property="magazineIds"/>
+	</resultMap>
+	
+	<select id="getChanceByMobile" statementType="CALLABLE" parameterMap="getChanceMap">
+		{call PKG_Y_CN201602A1.p_y_cn201602a1_getchance(?,?)}
+	</select>
+	<parameterMap type="java.util.Map" id="getChanceMap">
+		<parameter property="I_MOBILE" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="O_RETURN" mode="OUT" jdbcType="INTEGER"/>
+	</parameterMap>
+	
+	<select id="queryAllPrizes" resultType="cn.richinfo.pojo.PrizeInfo">
+	    select * from T_Y_PUBLIC_PRIZES t
+	                       where t.projectcode = 'CN201602A1'
+	                         and t.deletestatus != 1
+	</select>
+	
+	<!-- 增加抽奖机会次数 -->
+	<insert id="addchance" statementType="CALLABLE" parameterMap="chanceMap">
+		{call pkg_y_cn201602a1.p_y_cn201602a1_addchance(?,?,?,?)}
+	</insert>
+	
+	<parameterMap type="java.util.Map" id="chanceMap">
+		<parameter property="I_USERMOBILE" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="I_CHANCETYPE" mode="IN" jdbcType="INTEGER"/>
+		<parameter property="I_COMEFROM" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="O_RETURN" mode="OUT" jdbcType="INTEGER"/>
+	</parameterMap>
+</mapper>
